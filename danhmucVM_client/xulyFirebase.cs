@@ -1,0 +1,243 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
+using System.Data;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
+
+namespace danhmucVM_client
+{
+    class xulyFirebase
+    {
+        public static string tencuahang;
+        public static string setTenCuaHang
+        {
+            get { return tencuahang; }
+            set { tencuahang = value; }
+        }
+        public static IFirebaseClient clientFirebase;
+        public static IFirebaseConfig configFirebase = new FirebaseConfig
+        {
+            AuthSecret = "w2evy6pLiTOlWdsl3ZJ40eJ1qvCkCrFGUecs2kou",
+            BasePath = "https://danhmucvm-cnf.firebaseio.com/"
+        };
+        //cac class ketqua
+        class taikhoandangnhap
+        {
+            public string ten { get; set; }
+            public string pass { get; set; }
+        }
+        class ngaymoinhat
+        {
+            public string tenngay { get; set; }
+        }
+        class filemoi
+        {
+            public string tenfile { get; set; }
+        }
+        class id
+        {
+            public int name { get; set; }
+        }
+        class masp
+        {
+            public string tenma { get; set; }
+            public string trangthai { get; set; }
+        }
+        class ngaychon
+        {
+            public string tenngay { get; set; }
+        }
+        class update
+        {
+            public id id { get; set; }
+            public masp masp { get; set; }
+            public ngaychon ngaychon { get; set; }
+        }
+        // cac ham xu ly
+        public static async Task<bool> kiemtraTK(string ten, string pass)
+        {
+            bool k = false;
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            try
+            {
+                FirebaseResponse laytaikhoan = await clientFirebase.GetAsync("dangnhap/taikhoan/" + ten);
+                taikhoandangnhap kq = laytaikhoan.ResultAs<taikhoandangnhap>();
+                string tenF = kq.ten;
+                string passF = kq.pass;
+                if (ten == tenF && pass == passF)
+                {
+                    k = true;
+                }
+                else k = false;
+            }
+            catch (Exception)
+            {
+                k = false;
+                
+            }
+            return k;
+        }
+        public static async Task<string> layngayGannhat()
+        {
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            FirebaseResponse layngay = await clientFirebase.GetAsync("thongso/ngaymoinhat");
+            ngaymoinhat kq = layngay.ResultAs<ngaymoinhat>();
+            return kq.tenngay;
+        }
+        public static async void updateSqlite(DataGridView dtv)
+        {
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            FirebaseResponse layngay = await clientFirebase.GetAsync("ngayduocban");
+            Dictionary<string, Dictionary<string, dulieu>> kq = layngay.ResultAs<Dictionary<string, Dictionary<string, dulieu>>>();
+            var con = ketnoisqlite_data.khoitao();
+            string ngaysqlite = null;
+            foreach (KeyValuePair<string, Dictionary<string, dulieu>> ngay in kq)
+            {
+                ngaysqlite = con.Kiemtra("ngaydangso", "hangduocban", ngay.Key);
+                if (ngaysqlite == null)
+                {
+                    foreach (KeyValuePair<string, dulieu> ma in ngay.Value)
+                    {
+                        con.Chenvaobanghangduocban(ma.Key, ma.Value.ngayduocban, ma.Value.ghichu, ngay.Key, ma.Value.mota, ma.Value.chude);
+                    }
+                    dtv.Invoke(new MethodInvoker(delegate ()
+                   {
+                       dtv.DataSource = con.laythongtinkhichonngay(ngay.Key);
+                   }));
+                }
+            }
+        }
+        public static async void taobang(string ngaychon, DataGridView dtv)
+        {
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã tổng");
+            dt.Columns.Add("Mô tả");
+            dt.Columns.Add("Chủ đề");
+            dt.Columns.Add("Ghi chú");
+            dt.Columns.Add("Ngày được bán");
+            dt.Columns.Add("Tình trạng trưng");
+            dt.AcceptChanges();
+            try
+            {
+                FirebaseResponse laytheongay = await clientFirebase.GetAsync("ngayduocban/" + ngaychon);
+                Dictionary<string, dulieu> kq = laytheongay.ResultAs<Dictionary<string, dulieu>>();
+                foreach (KeyValuePair<string, dulieu> item in kq)
+                {
+                    DataRow row = dt.NewRow();
+                    row[0] = item.Key;
+                    row[1] = item.Value.mota;
+                    row[2] = item.Value.chude;
+                    row[3] = item.Value.ghichu;
+                    row[4] = item.Value.ngayduocban;
+                    row[5] = item.Value.taikhoancnf.layten(tencuahang).trangthaitrung;
+                    dt.Rows.Add(row);
+                }
+            }
+            catch (Exception)
+            {
+                dtv.DataSource = null;
+                return;
+            }
+            dtv.DataSource = dt;
+        }
+        public static async Task<string> layFilemoi()
+        {
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            FirebaseResponse lay = await clientFirebase.GetAsync("thongso/filemoi");
+            filemoi kq = lay.ResultAs<filemoi>();
+            return kq.tenfile;
+        }
+        public static async void updateTrunghangFB(string ngaydangso, string matong, string tentrangthai)
+        {
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            FirebaseResponse chen = await clientFirebase.UpdateAsync("ngayduocban/" + ngaydangso + "/" + matong + "/taikhoancnf/" + tencuahang, new { trangthaitrung = tentrangthai });
+        }
+        public static async void updateTrunghangTongFB(string ngaydangso, string matong, string tentrangthai,int id)
+        {
+            var data = new update
+            {
+                id = new id
+                {
+                    name = id
+                },
+                masp = new masp
+                {
+                    tenma = matong,
+                    trangthai = tentrangthai
+                },
+                ngaychon = new ngaychon { tenngay = ngaydangso }
+            };
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            FirebaseResponse chen = await clientFirebase.UpdateAsync("updatetrunghang/" + tencuahang, data);
+
+            Console.WriteLine(matong);
+        }
+        // ham listener
+        public static async void langngheLoadbang(DataGridView dtv, Form ff)
+        {
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            EventStreamResponse response = await clientFirebase.OnAsync("thongso/ngaymoinhat",
+                changed:
+                (sender, args, context) => {
+                    chenBangsqlite(args.Data, dtv);
+                    ff.Invoke(new MethodInvoker(delegate ()
+                    {
+                        hamtao.thongbaoGocmanhinh("Có danh mục cập nhật mới nhất.\nNgày: " + args.Data);
+                    }));
+                });
+        }
+        public static async void chenBangsqlite(string ngaydangso, DataGridView dtv) //chen vao bang sqlite theo tham so ngaydangso
+        {
+            var con = ketnoisqlite_data.khoitao();
+            if (con.Kiemtra("ngaydangso", "hangduocban", ngaydangso) == null)
+            {
+                clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+                FirebaseResponse laydulieu = await clientFirebase.GetAsync("ngayduocban/" + ngaydangso);
+                Dictionary<string, dulieu> kq = laydulieu.ResultAs<Dictionary<string, dulieu>>();
+
+                foreach (KeyValuePair<string, dulieu> item in kq)
+                {
+                    con.Chenvaobanghangduocban(item.Key, item.Value.ngayduocban, item.Value.ghichu, ngaydangso, item.Value.mota, item.Value.chude);
+                }
+                dtv.Invoke(new MethodInvoker(delegate ()
+                {
+                    dtv.DataSource = con.laythongtinkhichonngay(ngaydangso);
+                }));
+            }
+        }
+        public static async void xulylangngheTrunghang(DataGridView dtv, int idcuamay)
+        {
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            FirebaseResponse layngay = await clientFirebase.GetAsync("updatetrunghang/" + tencuahang);
+            update kq = layngay.ResultAs<update>();
+            int idSV = kq.id.name;
+            if (idcuamay != idSV)
+            {
+                var con = ketnoisqlite_data.khoitao();
+                con.updatetrunghang(kq.masp.tenma, kq.masp.trangthai);
+                dtv.Invoke(new MethodInvoker(delegate ()
+                {
+                    dtv.DataSource = con.laythongtinkhichonngay(kq.ngaychon.tenngay);
+                }));
+            }
+        }
+        public static async void langngheTrungHang(DataGridView dtv, int id)
+        {
+            clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+            EventStreamResponse trunghangListener = await clientFirebase.OnAsync("updatetrunghang",
+                changed:
+                (sender, args, context) =>
+                {
+                    xulylangngheTrunghang(dtv, id);
+                });
+        }
+    }
+}

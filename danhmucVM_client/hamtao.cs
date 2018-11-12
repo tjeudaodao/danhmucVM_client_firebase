@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Tulpep.NotificationWindow;
 
 namespace danhmucVM_client
 {
@@ -160,5 +161,26 @@ namespace danhmucVM_client
             Marshal.FinalReleaseComObject(book);
         }
         #endregion
+
+        public static void thongbaoGocmanhinh(string noidung)
+        {
+            PopupNotifier pop = new PopupNotifier();
+            pop.TitleText = "Thông báo";
+            pop.ContentText = "\" " + noidung + " \"";
+            pop.Image = Properties.Resources.rotation;
+            pop.IsRightToLeft = false;
+            pop.TitleColor = System.Drawing.Color.Lime;
+            pop.TitleFont = new System.Drawing.Font("Comic Sans MS", 10, System.Drawing.FontStyle.Underline);
+            pop.BodyColor = System.Drawing.Color.DimGray;
+            pop.Size = new System.Drawing.Size(380, 130);
+            pop.ImageSize = new System.Drawing.Size(100, 100);
+            pop.ImagePadding = new Padding(15);
+            pop.ContentColor = System.Drawing.Color.White;
+            pop.ContentFont = new System.Drawing.Font("Comic Sans MS", 12, System.Drawing.FontStyle.Bold);
+            pop.Delay = 3500;
+            pop.BorderColor = System.Drawing.Color.DimGray;
+            pop.HeaderHeight = 1;
+            pop.Popup();
+        }
     }
 }

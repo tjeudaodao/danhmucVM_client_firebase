@@ -40,7 +40,7 @@
             // 
             // pbavatar
             // 
-            this.pbavatar.Location = new System.Drawing.Point(310, 344);
+            this.pbavatar.Location = new System.Drawing.Point(308, 344);
             this.pbavatar.Name = "pbavatar";
             this.pbavatar.Size = new System.Drawing.Size(219, 144);
             this.pbavatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -52,9 +52,9 @@
             this.btn_home.BackColor = System.Drawing.Color.White;
             this.btn_home.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_home.Image = ((System.Drawing.Image)(resources.GetObject("btn_home.Image")));
-            this.btn_home.Location = new System.Drawing.Point(701, 543);
+            this.btn_home.Location = new System.Drawing.Point(366, 571);
             this.btn_home.Name = "btn_home";
-            this.btn_home.Size = new System.Drawing.Size(87, 45);
+            this.btn_home.Size = new System.Drawing.Size(87, 39);
             this.btn_home.TabIndex = 1;
             this.btn_home.UseVisualStyleBackColor = false;
             this.btn_home.Click += new System.EventHandler(this.btn_home_Click);
@@ -62,9 +62,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(153, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(158, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(501, 248);
+            this.pictureBox1.Size = new System.Drawing.Size(501, 270);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -84,7 +84,7 @@
             this.lbchaomung.BackColor = System.Drawing.Color.White;
             this.lbchaomung.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbchaomung.ForeColor = System.Drawing.Color.Crimson;
-            this.lbchaomung.Location = new System.Drawing.Point(265, 304);
+            this.lbchaomung.Location = new System.Drawing.Point(263, 304);
             this.lbchaomung.Name = "lbchaomung";
             this.lbchaomung.Size = new System.Drawing.Size(312, 37);
             this.lbchaomung.TabIndex = 3;
@@ -97,7 +97,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(800, 617);
             this.Controls.Add(this.lbchaomung);
             this.Controls.Add(this.lblogin);
             this.Controls.Add(this.pbavatar);
