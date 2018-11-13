@@ -141,7 +141,7 @@ namespace danhmucVM_client
             {
                 while (true)
                 {
-                    Thread.Sleep(400);
+                    Thread.Sleep(500);
                     var consqlite = ketnoisqlite_data.khoitao();
                     
                     string tenfilemoi = await xulyFirebase.layFilemoi();
@@ -553,8 +553,7 @@ namespace danhmucVM_client
                 var month = sender as MonthCalendar;
                 DateTime ngaychon = month.SelectionStart;
                 ngaychonbandau = month.SelectionStart.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
-                var con = ketnoisqlite_data.khoitao();
-                datag1.DataSource = con.laythongtinkhichonngay(ngaychonbandau);
+                xulyFirebase.updateTrunghangkhichonngay(ngaychonbandau,datag1);
                 updatesoluongtrenbang();
                 dateTimePicker1.Value = ngaychon;
                 dateTimePicker2.Value = ngaychon;
