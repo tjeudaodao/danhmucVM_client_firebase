@@ -15,6 +15,7 @@ namespace danhmucVM_client
 {
     class xulyFirebase
     {
+        public static System.Media.SoundPlayer danhmucmoi = new System.Media.SoundPlayer(Properties.Resources.danhmucmoi);
         public static string tencuahang;
         public static string setTenCuaHang
         {
@@ -148,8 +149,9 @@ namespace danhmucVM_client
             }
             dtv.DataSource = dt;
         }
-        public static async void updateTrunghangkhichonngay(string ngaychondangdo, DataGridView dtv)
+        public static async Task<bool> updateTrunghangkhichonngay(string ngaychondangdo, DataGridView dtv, Label lbtongma)
         {
+            bool k = false;
             clientFirebase = new FireSharp.FirebaseClient(configFirebase);
             try
             {
@@ -163,13 +165,26 @@ namespace danhmucVM_client
                 dtv.Invoke(new MethodInvoker(delegate ()
                 {
                     dtv.DataSource = con.laythongtinkhichonngay(ngaychondangdo);
+                    lbtongma.Invoke(new MethodInvoker(delegate ()
+                    {
+                        lbtongma.Text = dtv.Rows.Count.ToString();
+                    }));
                 }));
+                k = true;
             }
             catch (Exception)
             {
-                return;
+                dtv.Invoke(new MethodInvoker(delegate ()
+                {
+                    dtv.DataSource = null;
+                    lbtongma.Invoke(new MethodInvoker(delegate ()
+                    {
+                        lbtongma.Text = "0";
+                    }));
+                }));
+                k = false;
             }
-
+            return k;
         }
         public static async Task<string> layFilemoi()
         {
@@ -204,37 +219,50 @@ namespace danhmucVM_client
             Console.WriteLine(matong);
         }
         // ham listener
-        public static async void langngheLoadbang(DataGridView dtv, Form ff)
+        public static async void langngheLoadbang(DataGridView dtv, Form ff, Label lbtongma)
         {
             clientFirebase = new FireSharp.FirebaseClient(configFirebase);
             EventStreamResponse response = await clientFirebase.OnAsync("thongso/ngaymoinhat",
                 changed:
                 (sender, args, context) => {
-                    chenBangsqlite(args.Data, dtv);
+                    chenBangsqlite(args.Data, dtv, lbtongma);
                     ff.Invoke(new MethodInvoker(delegate ()
                     {
                         hamtao.thongbaoGocmanhinh("Có danh mục cập nhật mới nhất.\nNgày: " + args.Data);
                     }));
+                    danhmucmoi.Play();
                 });
         }
-        public static async void chenBangsqlite(string ngaydangso, DataGridView dtv) //chen vao bang sqlite theo tham so ngaydangso
+        public static async void chenBangsqlite(string ngaydangso, DataGridView dtv, Label lbtongma) //chen vao bang sqlite theo tham so ngaydangso
         {
-            var con = ketnoisqlite_data.khoitao();
-            if (con.Kiemtra("ngaydangso", "hangduocban", ngaydangso) == null)
+            try
             {
-                clientFirebase = new FireSharp.FirebaseClient(configFirebase);
-                FirebaseResponse laydulieu = await clientFirebase.GetAsync("ngayduocban/" + ngaydangso);
-                Dictionary<string, dulieu> kq = laydulieu.ResultAs<Dictionary<string, dulieu>>();
+                var con = ketnoisqlite_data.khoitao();
+                if (con.Kiemtra("ngaydangso", "hangduocban", ngaydangso) == null)
+                {
+                    clientFirebase = new FireSharp.FirebaseClient(configFirebase);
+                    FirebaseResponse laydulieu = await clientFirebase.GetAsync("ngayduocban/" + ngaydangso);
+                    Dictionary<string, dulieu> kq = laydulieu.ResultAs<Dictionary<string, dulieu>>();
 
-                foreach (KeyValuePair<string, dulieu> item in kq)
-                {
-                    con.Chenvaobanghangduocban(item.Key, item.Value.ngayduocban, item.Value.ghichu, ngaydangso, item.Value.mota, item.Value.chude);
+                    foreach (KeyValuePair<string, dulieu> item in kq)
+                    {
+                        con.Chenvaobanghangduocban(item.Key, item.Value.ngayduocban, item.Value.ghichu, ngaydangso, item.Value.mota, item.Value.chude);
+                    }
+                    dtv.Invoke(new MethodInvoker(delegate ()
+                    {
+                        dtv.DataSource = con.laythongtinkhichonngay(ngaydangso);
+                        lbtongma.Invoke(new MethodInvoker(delegate ()
+                        {
+                            lbtongma.Text = dtv.Rows.Count.ToString();
+                        }));
+                    }));
                 }
-                dtv.Invoke(new MethodInvoker(delegate ()
-                {
-                    dtv.DataSource = con.laythongtinkhichonngay(ngaydangso);
-                }));
             }
+            catch (Exception)
+            {
+                return;
+            }
+            
         }
         public static async void xulylangngheTrunghang(DataGridView dtv, int idcuamay)
         {
@@ -244,18 +272,16 @@ namespace danhmucVM_client
             int idSV = kq.id.name;
             if (idcuamay != idSV)
             {
-                var con = ketnoisqlite_data.khoitao();
-                con.updatetrunghang(kq.masp.tenma, kq.masp.trangthai);
                 dtv.Invoke(new MethodInvoker(delegate ()
                 {
-                    dtv.DataSource = con.laythongtinkhichonngay(kq.ngaychon.tenngay);
+                    taobang(kq.ngaychon.tenngay, dtv);
                 }));
             }
         }
         public static async void langngheTrungHang(DataGridView dtv, int id)
         {
             clientFirebase = new FireSharp.FirebaseClient(configFirebase);
-            EventStreamResponse trunghangListener = await clientFirebase.OnAsync("updatetrunghang",
+            EventStreamResponse trunghangListener = await clientFirebase.OnAsync("updatetrunghang/" + tencuahang,
                 changed:
                 (sender, args, context) =>
                 {

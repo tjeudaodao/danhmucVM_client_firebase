@@ -280,9 +280,9 @@ namespace danhmucVM_client
             datag1.DataSource = con2.laythongtinkhichonngay(ngaychonbandau);
             lbtongma.Text = datag1.Rows.Count.ToString();
             // functon listerer
-            xulyFirebase.langngheLoadbang(datag1, this);
+            xulyFirebase.langngheLoadbang(datag1, this, lbtongma);
             xulyFirebase.langngheTrungHang(datag1,id);
-            xulyFirebase.updateSqlite(datag1);
+            xulyFirebase.updateSqlite(datag1); // ham kiem tra xem co ngay nao tren FB ma trong sqlite ko co thi capnhat
         }
         void laythongtinvaolabel(string mahang)
         {
@@ -359,11 +359,10 @@ namespace danhmucVM_client
             datag1.FirstDisplayedScrollingRowIndex = sohang;
             datag1.Focus();
         }
-        void updatetrunghangthanhdatrung()
+        void updatetrunghang(string trangthai)
         {
             try
             {
-                
                 var con = ketnoisqlite_data.khoitao();
                 var ham = hamtao.Khoitao();
                 if (datag1.SelectedRows.Count > 0)
@@ -375,9 +374,9 @@ namespace danhmucVM_client
                     {
                         ngay = ham.chuyendoingayvedangso(row.Cells[4].Value.ToString());
                         matong = row.Cells[0].Value.ToString();
-                        con.updatedatrunghangthanhdatrung(matong);
-                        xulyFirebase.updateTrunghangFB(ngay, matong, "Đã Trưng Bán");
-                        xulyFirebase.updateTrunghangTongFB(ngay, matong, "Đã Trưng Bán", id);
+                        con.updatetrunghang(matong, trangthai);
+                        xulyFirebase.updateTrunghangFB(ngay, matong, trangthai);
+                        xulyFirebase.updateTrunghangTongFB(ngay, matong, trangthai, id);
                     }
                     if (ngaychonbandau == null)
                     {
@@ -397,50 +396,8 @@ namespace danhmucVM_client
                 NotificationHts("Có vấn đề");
                 lbtrangthai.Text = ex.ToString();
             }
-            
-
         }
-        void updatetrunghangthanhchuatrung()
-        {
-            try
-            {
-                var con = ketnoisqlite_data.khoitao();
-                var ham = hamtao.Khoitao();
-                if (datag1.SelectedRows.Count > 0)
-                {
-                    int sohang = datag1.SelectedRows[0].Index;
-                    string matong = null;
-                    string ngay = null;
-                    foreach (DataGridViewRow row in datag1.SelectedRows)
-                    {
-                        ngay = ham.chuyendoingayvedangso(row.Cells[4].Value.ToString());
-                        matong = row.Cells[0].Value.ToString();
-                        con.updatetrunghangthanhchuatrung(matong);
-                        xulyFirebase.updateTrunghangFB(ngay, matong, "Chưa trưng bán");
-
-                        xulyFirebase.updateTrunghangTongFB(ngay, matong, "Chưa trưng bán", id);
-                    }
-                    if (ngaychonbandau == null)
-                    {
-                        ngaychonbandau = con.layngayganhat();
-                    }
-                    if (nuthts_trung.Checked)
-                    {
-                        datag1.DataSource = con.laydanhsachCHUATRUNG();
-                    }
-                    else datag1.DataSource = con.laythongtinkhichonngay(ngaychonbandau);
-                    nhaydenhangvuachon(sohang);
-                    updatesoluongtrenbang();
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationHts("Có vấn đề");
-                lbtrangthai.Text = ex.ToString();
-            }
-            
-
-        }
+        
         void NotificationHts(string noidung)
         {
             PopupNotifier pop = new PopupNotifier();
@@ -546,15 +503,15 @@ namespace danhmucVM_client
             txtmatong.Focus();
             updatesoluongtrenbang();
         }
-        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
+        private async void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
         {
             try
             {
                 var month = sender as MonthCalendar;
                 DateTime ngaychon = month.SelectionStart;
                 ngaychonbandau = month.SelectionStart.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
-                xulyFirebase.updateTrunghangkhichonngay(ngaychonbandau,datag1);
-                updatesoluongtrenbang();
+                await xulyFirebase.updateTrunghangkhichonngay(ngaychonbandau,datag1,lbtongma);
+                lbngayban.Text = DateTime.ParseExact(ngaychonbandau, "yyyyMMdd", CultureInfo.InvariantCulture).ToString("dd-MM-yyyy");
                 dateTimePicker1.Value = ngaychon;
                 dateTimePicker2.Value = ngaychon;
             }
@@ -571,12 +528,11 @@ namespace danhmucVM_client
         {
             try
             {
-                updatetrunghangthanhdatrung();
+                updatetrunghang("Đã Trưng Bán");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                lbtrangthai.Text = ex.ToString();
+                return;
             }
 
         }
@@ -585,13 +541,11 @@ namespace danhmucVM_client
         {
             try
             {
-
-                updatetrunghangthanhchuatrung();
+                updatetrunghang("Chưa trưng bán");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                lbtrangthai.Text = ex.ToString();
+                return;
             }
         }
         private void datag1_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -92,6 +92,15 @@ namespace danhmucVM_client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
+        internal static System.IO.UnmanagedMemoryStream danhmucmoi {
+            get {
+                return ResourceManager.GetStream("danhmucmoi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
         internal static System.IO.UnmanagedMemoryStream duocban {
             get {
                 return ResourceManager.GetStream("duocban", resourceCulture);

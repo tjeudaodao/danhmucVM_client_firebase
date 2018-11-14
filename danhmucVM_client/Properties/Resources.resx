@@ -127,6 +127,9 @@
   <data name="chuaban" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chuaban.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="danhmucmoi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\danhmucmoi.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="duocban" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\duocban.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

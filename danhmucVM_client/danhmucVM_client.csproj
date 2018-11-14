@@ -207,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pawprint_jFz_icon.ico" />
+    <None Include="Resources\danhmucmoi.wav" />
     <None Include="Resources\loading1.gif" />
     <None Include="Resources\rotation.png" />
     <None Include="Resources\loop.png" />

@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Formchinh));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Formchinh));
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.txtbarcode = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pbxoamatong = new System.Windows.Forms.PictureBox();
             this.lbngayban = new System.Windows.Forms.Label();
             this.lbmotasanpham = new System.Windows.Forms.Label();
             this.lbdatrunghaychua = new System.Windows.Forms.Label();
@@ -45,7 +43,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.datag1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pbAMTHANH = new System.Windows.Forms.PictureBox();
             this.lbtrangthai = new System.Windows.Forms.Label();
             this.lbbaomail = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -54,26 +51,29 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnXuatIn = new System.Windows.Forms.Button();
             this.lbmahang = new System.Windows.Forms.Label();
-            this.pbphatanh = new System.Windows.Forms.PictureBox();
             this.btnchuatrunghang = new System.Windows.Forms.Button();
             this.btndatrunghang = new System.Windows.Forms.Button();
-            this.pbanhsanpham = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lbtongma = new System.Windows.Forms.Label();
-            this.nuthts_trung = new danhmucVM_client.nuthts();
             this.label1 = new System.Windows.Forms.Label();
+            this.pbphatanh = new System.Windows.Forms.PictureBox();
+            this.pbAMTHANH = new System.Windows.Forms.PictureBox();
+            this.pbanhsanpham = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbxoamatong = new System.Windows.Forms.PictureBox();
+            this.nuthts_trung = new danhmucVM_client.nuthts();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxoamatong)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.datag1)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbAMTHANH)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbphatanh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbanhsanpham)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbphatanh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAMTHANH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbanhsanpham)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxoamatong)).BeginInit();
             this.SuspendLayout();
             // 
             // monthCalendar1
@@ -112,35 +112,14 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(169, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pbxoamatong
-            // 
-            this.pbxoamatong.Image = ((System.Drawing.Image)(resources.GetObject("pbxoamatong.Image")));
-            this.pbxoamatong.Location = new System.Drawing.Point(169, 54);
-            this.pbxoamatong.Name = "pbxoamatong";
-            this.pbxoamatong.Size = new System.Drawing.Size(23, 22);
-            this.pbxoamatong.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbxoamatong.TabIndex = 5;
-            this.pbxoamatong.TabStop = false;
-            this.pbxoamatong.Click += new System.EventHandler(this.pbxoamatong_Click);
-            // 
             // lbngayban
             // 
             this.lbngayban.BackColor = System.Drawing.Color.White;
-            this.lbngayban.Font = new System.Drawing.Font("Comic Sans MS", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbngayban.Font = new System.Drawing.Font("Comic Sans MS", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbngayban.ForeColor = System.Drawing.Color.Tomato;
-            this.lbngayban.Location = new System.Drawing.Point(478, 12);
+            this.lbngayban.Location = new System.Drawing.Point(448, 12);
             this.lbngayban.Name = "lbngayban";
-            this.lbngayban.Size = new System.Drawing.Size(221, 70);
+            this.lbngayban.Size = new System.Drawing.Size(342, 70);
             this.lbngayban.TabIndex = 4;
             this.lbngayban.Text = "Ngày bán";
             this.lbngayban.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -152,7 +131,7 @@
             this.lbmotasanpham.ForeColor = System.Drawing.Color.DimGray;
             this.lbmotasanpham.Location = new System.Drawing.Point(7, 82);
             this.lbmotasanpham.Name = "lbmotasanpham";
-            this.lbmotasanpham.Size = new System.Drawing.Size(692, 79);
+            this.lbmotasanpham.Size = new System.Drawing.Size(783, 79);
             this.lbmotasanpham.TabIndex = 4;
             this.lbmotasanpham.Text = "Mô tả sản phẩm";
             this.lbmotasanpham.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -162,9 +141,9 @@
             this.lbdatrunghaychua.BackColor = System.Drawing.Color.BlueViolet;
             this.lbdatrunghaychua.Font = new System.Drawing.Font("Comic Sans MS", 24F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbdatrunghaychua.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbdatrunghaychua.Location = new System.Drawing.Point(705, 89);
+            this.lbdatrunghaychua.Location = new System.Drawing.Point(796, 89);
             this.lbdatrunghaychua.Name = "lbdatrunghaychua";
-            this.lbdatrunghaychua.Size = new System.Drawing.Size(371, 70);
+            this.lbdatrunghaychua.Size = new System.Drawing.Size(280, 70);
             this.lbdatrunghaychua.TabIndex = 4;
             this.lbdatrunghaychua.Text = "Trưng ?";
             this.lbdatrunghaychua.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -174,9 +153,9 @@
             this.lbduocbanhaychua.BackColor = System.Drawing.Color.DodgerBlue;
             this.lbduocbanhaychua.Font = new System.Drawing.Font("Comic Sans MS", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbduocbanhaychua.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbduocbanhaychua.Location = new System.Drawing.Point(705, 13);
+            this.lbduocbanhaychua.Location = new System.Drawing.Point(796, 13);
             this.lbduocbanhaychua.Name = "lbduocbanhaychua";
-            this.lbduocbanhaychua.Size = new System.Drawing.Size(371, 70);
+            this.lbduocbanhaychua.Size = new System.Drawing.Size(280, 70);
             this.lbduocbanhaychua.TabIndex = 4;
             this.lbduocbanhaychua.Text = "Bán ?";
             this.lbduocbanhaychua.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -256,17 +235,6 @@
             this.panel1.Size = new System.Drawing.Size(1350, 28);
             this.panel1.TabIndex = 11;
             // 
-            // pbAMTHANH
-            // 
-            this.pbAMTHANH.Image = global::danhmucVM_client.Properties.Resources.speaker;
-            this.pbAMTHANH.Location = new System.Drawing.Point(1294, 0);
-            this.pbAMTHANH.Name = "pbAMTHANH";
-            this.pbAMTHANH.Size = new System.Drawing.Size(38, 28);
-            this.pbAMTHANH.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbAMTHANH.TabIndex = 2;
-            this.pbAMTHANH.TabStop = false;
-            this.pbAMTHANH.Click += new System.EventHandler(this.pbAMTHANH_Click);
-            // 
             // lbtrangthai
             // 
             this.lbtrangthai.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -281,7 +249,7 @@
             // 
             this.lbbaomail.AutoSize = true;
             this.lbbaomail.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbbaomail.Location = new System.Drawing.Point(4, 6);
+            this.lbbaomail.Location = new System.Drawing.Point(17, 6);
             this.lbbaomail.Name = "lbbaomail";
             this.lbbaomail.Size = new System.Drawing.Size(62, 15);
             this.lbbaomail.TabIndex = 0;
@@ -354,17 +322,6 @@
             this.lbmahang.Text = "Mã hàng";
             this.lbmahang.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbphatanh
-            // 
-            this.pbphatanh.Image = global::danhmucVM_client.Properties.Resources.pause;
-            this.pbphatanh.Location = new System.Drawing.Point(1147, 222);
-            this.pbphatanh.Name = "pbphatanh";
-            this.pbphatanh.Size = new System.Drawing.Size(47, 33);
-            this.pbphatanh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbphatanh.TabIndex = 16;
-            this.pbphatanh.TabStop = false;
-            this.pbphatanh.Click += new System.EventHandler(this.pbphatanh_Click);
-            // 
             // btnchuatrunghang
             // 
             this.btnchuatrunghang.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -393,15 +350,6 @@
             this.btndatrunghang.UseVisualStyleBackColor = false;
             this.btndatrunghang.Click += new System.EventHandler(this.btndatrunghang_Click);
             // 
-            // pbanhsanpham
-            // 
-            this.pbanhsanpham.Location = new System.Drawing.Point(1006, 257);
-            this.pbanhsanpham.Name = "pbanhsanpham";
-            this.pbanhsanpham.Size = new System.Drawing.Size(332, 281);
-            this.pbanhsanpham.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbanhsanpham.TabIndex = 7;
-            this.pbanhsanpham.TabStop = false;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btndatrunghang);
@@ -427,7 +375,7 @@
             // 
             // lbtongma
             // 
-            this.lbtongma.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbtongma.BackColor = System.Drawing.Color.White;
             this.lbtongma.Font = new System.Drawing.Font("Comic Sans MS", 21F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbtongma.ForeColor = System.Drawing.Color.DarkCyan;
             this.lbtongma.Location = new System.Drawing.Point(20, 16);
@@ -436,6 +384,68 @@
             this.lbtongma.TabIndex = 0;
             this.lbtongma.Text = "0";
             this.lbtongma.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(187, 200);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(152, 23);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Tìm các mã chưa trưng:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pbphatanh
+            // 
+            this.pbphatanh.Image = global::danhmucVM_client.Properties.Resources.pause;
+            this.pbphatanh.Location = new System.Drawing.Point(1147, 222);
+            this.pbphatanh.Name = "pbphatanh";
+            this.pbphatanh.Size = new System.Drawing.Size(47, 33);
+            this.pbphatanh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbphatanh.TabIndex = 16;
+            this.pbphatanh.TabStop = false;
+            this.pbphatanh.Click += new System.EventHandler(this.pbphatanh_Click);
+            // 
+            // pbAMTHANH
+            // 
+            this.pbAMTHANH.Image = global::danhmucVM_client.Properties.Resources.speaker;
+            this.pbAMTHANH.Location = new System.Drawing.Point(1294, 0);
+            this.pbAMTHANH.Name = "pbAMTHANH";
+            this.pbAMTHANH.Size = new System.Drawing.Size(38, 28);
+            this.pbAMTHANH.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbAMTHANH.TabIndex = 2;
+            this.pbAMTHANH.TabStop = false;
+            this.pbAMTHANH.Click += new System.EventHandler(this.pbAMTHANH_Click);
+            // 
+            // pbanhsanpham
+            // 
+            this.pbanhsanpham.Location = new System.Drawing.Point(1006, 257);
+            this.pbanhsanpham.Name = "pbanhsanpham";
+            this.pbanhsanpham.Size = new System.Drawing.Size(332, 281);
+            this.pbanhsanpham.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbanhsanpham.TabIndex = 7;
+            this.pbanhsanpham.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(169, 18);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pbxoamatong
+            // 
+            this.pbxoamatong.Image = ((System.Drawing.Image)(resources.GetObject("pbxoamatong.Image")));
+            this.pbxoamatong.Location = new System.Drawing.Point(169, 54);
+            this.pbxoamatong.Name = "pbxoamatong";
+            this.pbxoamatong.Size = new System.Drawing.Size(23, 22);
+            this.pbxoamatong.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbxoamatong.TabIndex = 5;
+            this.pbxoamatong.TabStop = false;
+            this.pbxoamatong.Click += new System.EventHandler(this.pbxoamatong_Click);
             // 
             // nuthts_trung
             // 
@@ -448,16 +458,6 @@
             this.nuthts_trung.Text = "nuthts1";
             this.nuthts_trung.UseVisualStyleBackColor = true;
             this.nuthts_trung.CheckedChanged += new System.EventHandler(this.nuthts_trung_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(187, 200);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(152, 23);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Tìm các mã chưa trưng:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Formchinh
             // 
@@ -487,17 +487,17 @@
             this.Load += new System.EventHandler(this.Formchinh_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxoamatong)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.datag1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbAMTHANH)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbphatanh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbanhsanpham)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbphatanh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAMTHANH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbanhsanpham)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxoamatong)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
