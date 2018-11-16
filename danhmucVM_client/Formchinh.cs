@@ -265,7 +265,7 @@ namespace danhmucVM_client
             var con = ketnoisqlite.khoitao();
             var con2 = ketnoisqlite_data.khoitao();
             Random rd = new Random();
-            id = rd.Next(1, 10000);
+            id = rd.Next(1, 1000);
 
             string tentk = con.laytentaikhoan();
             if (!con2.kiemtraCot(tentk))
@@ -278,7 +278,6 @@ namespace danhmucVM_client
             this.Text = "Danh mục VM -- Tài khoản : " + tentk.ToUpper();
             ngaychonbandau = con2.layngayganhat();
             datag1.DataSource = con2.laythongtinkhichonngay(ngaychonbandau);
-            lbtongma.Text = datag1.Rows.Count.ToString();
             // functon listerer
             xulyFirebase.langngheLoadbang(datag1, this, lbtongma);
             xulyFirebase.langngheTrungHang(datag1,id);
@@ -349,8 +348,8 @@ namespace danhmucVM_client
             }
             else
             {
-                pbanhsanpham.Image = Properties.Resources.bombs;
-                lbmahang.Text = "Mã hàng";
+                xulyFirebase.taifileanh(tenanh, pbanhsanpham);
+                lbmahang.Text = tenanh;
             }
         }
         void nhaydenhangvuachon(int sohang)

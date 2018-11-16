@@ -10,11 +10,14 @@ using FireSharp.Response;
 using System.Data;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Firebase.Storage;
+using System.Net;
 
 namespace danhmucVM_client
 {
     class xulyFirebase
     {
+        public static string duongdanchuaanh = Application.StartupPath + @"\luuanh\";
         public static System.Media.SoundPlayer danhmucmoi = new System.Media.SoundPlayer(Properties.Resources.danhmucmoi);
         public static string tencuahang;
         public static string setTenCuaHang
@@ -217,6 +220,45 @@ namespace danhmucVM_client
             FirebaseResponse chen = await clientFirebase.UpdateAsync("updatetrunghang/" + tencuahang, data);
 
             Console.WriteLine(matong);
+        }
+        public static async void taifileanh(string tenanh, PictureBox pbanhsanpham)
+        {
+            var task = new FirebaseStorage("danhmucvm-cnf.appspot.com")
+                    .Child("anhsanpham_cnf")
+                    .Child(tenanh + ".png")
+                    .GetDownloadUrlAsync();
+            string link = await task;
+
+            using (var client = new WebClient())
+            {
+                try
+                {
+                    if (link == null)
+                    {
+                        pbanhsanpham.Invoke(new MethodInvoker(delegate ()
+                        {
+                            pbanhsanpham.Image = Properties.Resources.bombs;
+                        }));
+                    }
+                    else
+                    {
+                        client.DownloadFile(link, duongdanchuaanh + tenanh + ".png");
+                        pbanhsanpham.Invoke(new MethodInvoker(delegate ()
+                        {
+                            pbanhsanpham.ImageLocation = duongdanchuaanh + tenanh + ".png";
+                        }));
+                    }
+                }
+                catch (Exception)
+                {
+                    pbanhsanpham.Invoke(new MethodInvoker(delegate ()
+                    {
+                        pbanhsanpham.Image = Properties.Resources.bombs;
+                    }));
+                    return;
+                }
+
+            }
         }
         // ham listener
         public static async void langngheLoadbang(DataGridView dtv, Form ff, Label lbtongma)
