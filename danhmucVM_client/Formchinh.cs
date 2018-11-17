@@ -141,7 +141,7 @@ namespace danhmucVM_client
             {
                 while (true)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep(1000);
                     var consqlite = ketnoisqlite_data.khoitao();
                     
                     string tenfilemoi = await xulyFirebase.layFilemoi();
@@ -184,6 +184,7 @@ namespace danhmucVM_client
                             }
 
                         }
+                        xulyFirebase.updateSqlite(datag1);
                     }
                     catch (Exception)
                     {
@@ -281,7 +282,7 @@ namespace danhmucVM_client
             // functon listerer
             xulyFirebase.langngheLoadbang(datag1, this, lbtongma);
             xulyFirebase.langngheTrungHang(datag1,id);
-            xulyFirebase.updateSqlite(datag1); // ham kiem tra xem co ngay nao tren FB ma trong sqlite ko co thi capnhat
+            //xulyFirebase.updateSqlite(datag1); // ham kiem tra xem co ngay nao tren FB ma trong sqlite ko co thi capnhat
         }
         void laythongtinvaolabel(string mahang)
         {

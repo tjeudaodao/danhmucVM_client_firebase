@@ -267,15 +267,10 @@ namespace danhmucVM_client
             EventStreamResponse response = await clientFirebase.OnAsync("thongso/ngaymoinhat",
                 changed:
                 (sender, args, context) => {
-                    chenBangsqlite(args.Data, dtv, lbtongma);
-                    ff.Invoke(new MethodInvoker(delegate ()
-                    {
-                        hamtao.thongbaoGocmanhinh("Có danh mục cập nhật mới nhất.\nNgày: " + args.Data);
-                    }));
-                    danhmucmoi.Play();
+                    chenBangsqlite(args.Data, dtv, lbtongma, ff);
                 });
         }
-        public static async void chenBangsqlite(string ngaydangso, DataGridView dtv, Label lbtongma) //chen vao bang sqlite theo tham so ngaydangso
+        public static async void chenBangsqlite(string ngaydangso, DataGridView dtv, Label lbtongma , Form ff) //chen vao bang sqlite theo tham so ngaydangso
         {
             try
             {
@@ -298,6 +293,12 @@ namespace danhmucVM_client
                             lbtongma.Text = dtv.Rows.Count.ToString();
                         }));
                     }));
+                    ff.Invoke(new MethodInvoker(delegate ()
+                    {
+                        hamtao.thongbaoGocmanhinh("Có danh mục cập nhật mới nhất.\nNgày: " + ngaydangso);
+                    }));
+
+                    danhmucmoi.Play();
                 }
             }
             catch (Exception)
