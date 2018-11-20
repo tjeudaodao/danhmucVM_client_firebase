@@ -223,15 +223,15 @@ namespace danhmucVM_client
         }
         public static async void taifileanh(string tenanh, PictureBox pbanhsanpham)
         {
-            var task = new FirebaseStorage("danhmucvm-cnf.appspot.com")
+            try
+            {
+                var task = new FirebaseStorage("danhmucvm-cnf.appspot.com")
                     .Child("anhsanpham_cnf")
                     .Child(tenanh + ".png")
                     .GetDownloadUrlAsync();
-            string link = await task;
+                string link = await task;
 
-            using (var client = new WebClient())
-            {
-                try
+                using (var client = new WebClient())
                 {
                     if (link == null)
                     {
@@ -248,17 +248,18 @@ namespace danhmucVM_client
                             pbanhsanpham.ImageLocation = duongdanchuaanh + tenanh + ".png";
                         }));
                     }
+                    
                 }
-                catch (Exception)
-                {
-                    pbanhsanpham.Invoke(new MethodInvoker(delegate ()
-                    {
-                        pbanhsanpham.Image = Properties.Resources.bombs;
-                    }));
-                    return;
-                }
-
             }
+            catch (Exception)
+            {
+                pbanhsanpham.Invoke(new MethodInvoker(delegate ()
+                {
+                    pbanhsanpham.Image = Properties.Resources.bombs;
+                }));
+                return;
+            }
+            
         }
         // ham listener
         public static async void langngheLoadbang(DataGridView dtv, Form ff, Label lbtongma)
